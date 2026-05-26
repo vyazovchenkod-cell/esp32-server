@@ -11,7 +11,7 @@ app.post("/chat", async (req, res) => {
       model: "llama-3.3-70b-versatile",
       max_tokens: 200,
       messages: [
-        { role: "system", content: "Ти розумний асистент. Завжди відповідай українською мовою. Відповідай коротко, максимум 2-3 речення." },
+        { role: "system", content: "Ти розумний асистент. Завжди відповідай ТІЛЬКИ українською мовою. Відповідай коротко, 2-3 речення." },
         { role: "user", content: req.body.message }
       ]
     }, { headers: { Authorization: `Bearer ${GROQ_KEY}` } });
