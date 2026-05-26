@@ -11,7 +11,7 @@ app.post("/chat", async (req, res) => {
       model: "gpt-3.5-turbo",
       max_tokens: 200,
       messages: [
-        { role: "system", content: "Reply briefly, 2-3 sentences max." },
+        { role: "system", content: "Always reply in Ukrainian language using Latin transliteration (no Cyrillic). Reply briefly, 2-3 sentences max." },
         { role: "user", content: req.body.message }
       ]
     }, { headers: { Authorization: `Bearer ${OPENAI_KEY}` } });
