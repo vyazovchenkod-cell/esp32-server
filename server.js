@@ -14,10 +14,10 @@ app.post("/chat", async (req, res) => {
         generationConfig: { maxOutputTokens: 200 }
       }
     );
-
     const answer = r.data.candidates[0].content.parts[0].text.trim();
     res.json({ answer });
   } catch(e) {
+    console.log("ERROR:", e.response ? JSON.stringify(e.response.data) : e.message);
     res.status(500).json({ answer: "Error: " + (e.response ? JSON.stringify(e.response.data) : e.message) });
   }
 });
