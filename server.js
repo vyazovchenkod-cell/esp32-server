@@ -11,7 +11,7 @@ app.post("/chat", async (req, res) => {
   
   try {
     const r = await axios.post("https://api.groq.com/openai/v1/chat/completions", {
-      model: "llama3-8b-8192",
+      model: "llama-3.3-70b-versatile",,
       max_tokens: 200,
       messages: [
         { role: "system", content: "Reply briefly, 2-3 sentences max." },
