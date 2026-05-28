@@ -1,16 +1,19 @@
 const express = require("express");
-const axios   = require("axios");
-const app     = express();
-const KEY     = process.env.OPENAI_KEY;
+const axios = require("axios");
+const app = express();
+const GEMINI_KEY = process.env.OPENAI_KEY;
 
 app.use(express.json());
 
 app.post("/chat", async (req, res) => {
   try {
     const r = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
       {
         contents: [{ parts: [{ text: req.body.message }] }],
+        systemInstruction: {
+          parts: [{ text: "Ти розумний помічник. Відповідай коротко українською мовою, максимум 2-3 речення." }]
+        },
         generationConfig: { maxOutputTokens: 300 }
       }
     );
