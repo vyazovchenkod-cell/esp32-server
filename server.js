@@ -8,17 +8,18 @@ const GEMINI_KEY = process.env.GEMINI_KEY;
 app.use(express.json());
 
 app.post("/chat", async (req, res) => {
+
   try {
 
     const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
       {
         contents: [
           {
             parts: [
               {
                 text:
-                  "Ти розумний асистент. Завжди відповідай ТІЛЬКИ українською мовою. Відповідай коротко, 2-3 речення.\n\n" +
+                  "Відповідай тільки українською мовою.\n\n" +
                   req.body.message
               }
             ]
@@ -30,21 +31,22 @@ app.post("/chat", async (req, res) => {
     const answer =
       response.data.candidates[0].content.parts[0].text;
 
-    res.json({ answer });
+    res.json({
+      answer: answer
+    });
 
   } catch (e) {
 
+    console.log(e.response?.data || e.message);
+
     res.status(500).json({
-      answer:
-        "Error: " +
-        (e.response
-          ? JSON.stringify(e.response.data)
-          : e.message)
+      answer: "SERVER ERROR"
     });
 
   }
+
 });
 
-app.listen(process.env.PORT || 3000, () =>
-  console.log("Server started")
-);
+app.listen(3000, () => {
+  console.log("Server started");
+});
